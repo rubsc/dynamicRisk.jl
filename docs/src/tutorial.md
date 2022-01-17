@@ -1,3 +1,3 @@
-# The riskMeasures Module
+# The dynamicRisk Module
 
 

@@ -1,4 +1,4 @@
-# riskMeasures.jl
+# dynamicRisk.jl
 
 A collection of risk measures for discrete distributions in Julia.
 
