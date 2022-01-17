@@ -1,5 +1,4 @@
 using dynamicRisk
-using DifferentialEquations
 using Test
 
 @testset "BSDE" begin
