@@ -24,8 +24,6 @@ prob2 = SDEProblem(μ_f,σ_f,X0,tspan)
 function dynamicRM(process::SDEProblem,eval = x-> sum(x), RM=0.0, u0::Flux.Chain=Flux.Chain(), σᵀ∇u::Flux.Chain=Flux.Chain())
     # get information on forward process from SDEProblem
 
-    println()
-    println(length(dynamicRM.sig.parameters) )
     # get information on RM from class RM which riskMeasures introduces
 
 
