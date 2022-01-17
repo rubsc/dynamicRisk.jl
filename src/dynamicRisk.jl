@@ -1,6 +1,8 @@
 module dynamicRisk
 
-import DifferentialEquations
+using Reexport
+@reexport using StochasticDiffEq
+
 using LinearAlgebra, NeuralPDE, Flux
 using Test
 
