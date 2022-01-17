@@ -1,13 +1,13 @@
 module dynamicRisk
 
-using LinearAlgebra, NeuralPDE
+using LinearAlgebra, NeuralPDE, Flux, DifferentialEquations
 
 
 
 include("BSDE.jl")
 
 
-#export 
+export dynamicRM
 
 
 end # module
