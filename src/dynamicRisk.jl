@@ -4,10 +4,10 @@ using LinearAlgebra, NeuralPDE, Flux, DifferentialEquations
 using Test
 
 
-#include("BSDE.jl")
+include("BSDE.jl")
 
 
-#export dynamicRM
+export dynamicRM
 
 
 end # module
