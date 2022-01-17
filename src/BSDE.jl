@@ -1,9 +1,7 @@
-# Provides dynamic risk measures for SDEs and tree processes
-
-# In the future also more general lattices will be dealt with
+# Provides dynamic risk measures for SDEs
 
 
-function dynamicRM(prob2::SDEProblem,eval = x-> sum(x), RM=1.0, dt = 0.01,
+function dynamicRM(prob2::SDEProblem,eval = x-> sum(x), RM=1.0, dt = 0.01, MCs = 100, iter = 100
                     u0::Flux.Chain=Flux.Chain() )
 
 
@@ -35,7 +33,10 @@ function dynamicRM(prob2::SDEProblem,eval = x-> sum(x), RM=1.0, dt = 0.01,
 
 
     pdealg = NNPDEHan(u0,σᵀ∇u;opt=Flux.ADAM(0.1))
-    ans = solve(prob, pdealg, verbose=true, maxiters=100, trajectories=200, dt=dt)
+    ans = solve(prob, pdealg, verbose=true, maxiters=iter, trajectories=MCs, dt=dt)
 
     return(ans)
 end
+
+
+# Provide a jump diffusion version of dynamicRM
