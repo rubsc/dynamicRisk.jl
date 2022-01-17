@@ -8,7 +8,7 @@ function dynamicRM(prob2::SDEProblem,eval = x-> sum(x), RM=0.0, u0::Flux.Chain=F
 
     # get information on RM from class RM which riskMeasures introduces
 
-    dt = 0.2   # time step
+    dt = 0.01   # time step
     time_steps = div(prob2.tspan[2]-prob2.tspan[1],dt, RoundNearest)
 
 
@@ -34,6 +34,6 @@ function dynamicRM(prob2::SDEProblem,eval = x-> sum(x), RM=0.0, u0::Flux.Chain=F
 
 
     pdealg = NNPDEHan(u0,σᵀ∇u;opt=Flux.ADAM(0.1))
-    ans = solve(prob, pdealg, verbose=true, maxiters=50, trajectories=100, dt=dt)
+    ans = solve(prob, pdealg, verbose=true, maxiters=100, trajectories=200, dt=dt)
     return(ans)
 end

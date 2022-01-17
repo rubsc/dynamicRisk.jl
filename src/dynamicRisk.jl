@@ -1,6 +1,7 @@
 module dynamicRisk
 
-using LinearAlgebra, NeuralPDE, Flux, DifferentialEquations
+using DifferentialEquations
+using LinearAlgebra, NeuralPDE, Flux
 using Test
 
 
