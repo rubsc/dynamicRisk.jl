@@ -7,50 +7,51 @@
 # First a test
 
 
-
-
 X0 = [0.0f0]            # initial value of stochastic state
 tspan = (0.0f0,1.0f0)
 
 
-g(X) = sum(X)                                         # terminal condition
-μ_f(X,p,t) = zero(X) #Vector d x 1                    # drift of forward 
+g(X) = sum(X)         # needs to be number not [x]                                # terminal condition
+μ_f(X,p,t) = 0.0f0 #Vector d x 1                    # drift of forward 
 σ_f(X,p,t) = 1.0f0 #Matrix d x d    # diffusion part of forward --> 0.5*σ^2 is the full factor
 
 
-process = SDEProblem(μ_f,σ_f,X0,tspan)
+prob2 = SDEProblem(μ_f,σ_f,X0,tspan)
 
 #Example:
-# dynamicRisk(prob,eval=g, RM= ???)
+ dynamicRM(prob2)
 
-#function dynamicRM(process::SDEProblem,eval, RM, u0::Flux.Chain=Flux.Chain(), σᵀ∇u::Flux.Chain=Flux.Chain())
+function dynamicRM(process::SDEProblem,eval = x-> sum(x), RM=0.0, u0::Flux.Chain=Flux.Chain(), σᵀ∇u::Flux.Chain=Flux.Chain())
     # get information on forward process from SDEProblem
 
-
+    println()
+    println(length(dynamicRM.sig.parameters) )
     # get information on RM from class RM which riskMeasures introduces
-    #eval(X) = sum(X)       # same as g above
 
 
     f(X,u,σᵀ∇u,p,t) = abs.(σᵀ∇u)[1]                 # nonlinear riskMeasure part
-    prob = TerminalPDEProblem(eval, f, process.f, process.g, process.u0, process.tspan);
+    prob = TerminalPDEProblem(eval, f, prob2.f, prob2.g, prob2.u0, prob2.tspan);
     
-    d = length(process.u0)
+    d = length(prob2.u0)
     hls  = 10 + d #hide layer size
     opt = Flux.ADAM(0.001)
 
-    u0 = Flux.Chain(Dense(d,hls,relu),
+    if (u0 == Flux.Chain())
+        u0 = Flux.Chain(Dense(d,hls,relu),
                 Dense(hls,hls,relu),
                 Dense(hls,hls,relu),
                 Dense(hls,1))
-
-    σᵀ∇u = Flux.Chain(Dense(d+1,hls,relu),
+    end
+    if (σᵀ∇u == Flux.Chain())
+        σᵀ∇u = Flux.Chain(Dense(d+1,hls,relu),
                   Dense(hls,hls,relu),
                   Dense(hls,hls,relu),
                   Dense(hls,hls,relu),
                   Dense(hls,d))
+    end
 
 
     pdealg = NNPDENS(u0, σᵀ∇u, opt=opt)
-    ans = solve(prob, pdealg, verbose=true, maxiters=150, trajectories=100,alg=EM(), dt=0.2, pabstol = 1f-6)
-    #return(nothing)
-#end
+    ans = solve(prob, pdealg, verbose=true, maxiters=50, trajectories=100,alg=EM(), dt=0.2, pabstol = 1f-6)
+    return(ans)
+end
