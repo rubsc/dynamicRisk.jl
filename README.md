@@ -6,3 +6,12 @@
 [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://rubsc.github.io/dynamicRisk.jl/dev)
 
 Implementations of several dynamic risk measures in julia.
+
+
+ToDo:
+
++ nested risk measures for trees
++ nested risk measures for lattices --> Does this even work? (Markovian etc?)
++ better formulation of risk measures for SDEs
++ risk measures for jump diffusions
++ risk measures for general Ito-Lévy processes
