@@ -3,15 +3,6 @@
 # In the future also more general lattices will be dealt with
 
 
-################
-# First a test
-
-
-
-
-#Example:
- dynamicRM(prob2)
-
 function dynamicRM(process::SDEProblem,eval = x-> sum(x), RM=0.0, u0::Flux.Chain=Flux.Chain(), σᵀ∇u::Flux.Chain=Flux.Chain())
     # get information on forward process from SDEProblem
 
