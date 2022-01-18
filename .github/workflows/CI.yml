@@ -58,6 +58,7 @@ jobs:
             using dynamicRisk
             doctest(dynamicRisk)'
       - run: julia --project=docs docs/make.jl
+      - run: julia -e 'Pkg.test("dynamicRisk", coverage=true)'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
