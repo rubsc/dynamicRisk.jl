@@ -1,5 +1,5 @@
 using Flux, LinearAlgebra
-println("NNPDEHAN_tests")
+
 using NeuralPDE
 
 using Random

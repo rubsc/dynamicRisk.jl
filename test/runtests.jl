@@ -1,5 +1,6 @@
 using dynamicRisk
 using Test
+using DifferentialEquations
 
 @testset "BSDE" begin
     # Write your tests here.

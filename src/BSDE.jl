@@ -1,7 +1,7 @@
 # Provides dynamic risk measures for SDEs
 
 
-function dynamicRM(prob2::SDEProblem,eval = x-> sum(x), RM=1.0, dt = 0.01, MCs = 100, iter = 100
+function dynamicRM(prob2::SDEProblem,eval = x-> sum(x), RM=1.0, dt = 0.01, MCs = 100, iter = 50,
                     u0::Flux.Chain=Flux.Chain() )
 
 
