@@ -12,5 +12,5 @@ using DifferentialEquations
 
     prob2 = SDEProblem(μ_f,σ_f,X0,tspan);
     
-    @test  dynamicRM(prob2) ≈ 1.0 atol=0.01
+    @test  dynamicRM(prob2) ≈ 1.0 atol=0.1
 end
