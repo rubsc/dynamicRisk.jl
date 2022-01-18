@@ -37,8 +37,7 @@ jobs:
       - uses: codecov/codecov-action@v2
         with:
           files: lcov.info
-    after_success:
-      - julia -e 'using Pkg; cd(Pkg.dir("dynamicRisk")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
+          
   docs:
     name: Documentation
     runs-on: ubuntu-latest
