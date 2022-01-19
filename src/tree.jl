@@ -4,26 +4,26 @@
 Implements the nested version of RM for the tree specified by tree0.
 
 """
-function dynamicRM(trr::Tree,eval = x-> sum(x); RM=1.0 )
+function dynamicRM(trr,eval = x-> sum(x); RM=1.0 )
 
     println(typeof(RM))
 #    if typeof(RM) == func
 
 # recursively go through tree and apply RM
-T0 = deepcopy(trr);
+#T0 = deepcopy(trr);
 
 # For every parent node going backwards
-tmp = reverse(unique(T0.parent)); pop!(tmp)
-for i in tmp
+#tmp = reverse(unique(T0.parent)); pop!(tmp)
+#for i in tmp
     #Note that the probs are the conditional ones
     #Risk measure w/ adjustment of values
-    states2 = T0.state[T0.children[i+1]]
-    prob2 = T0.probability[T0.children[i+1]]
+#    states2 = T0.state[T0.children[i+1]]
+#    prob2 = T0.probability[T0.children[i+1]]
 
 
 
-    T0.state[i] = mSD(states2,prob2,0.95,5)
-end
+#    T0.state[i] = mSD(states2,prob2,0.95,5)
+#end
 
 
 return(nothing)
