@@ -3,7 +3,7 @@ module dynamicRisk
 
 using Reexport
 @reexport using DifferentialEquations
-#@reexport using ScenTrees
+#@reexport using ScenTreesMakie
 
 using LinearAlgebra, NeuralPDE, Flux
 using Test
