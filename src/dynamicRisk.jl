@@ -3,7 +3,8 @@ module dynamicRisk
 using Reexport
 @reexport using DifferentialEquations
 @reexport using ScenTreesMakie
-@reexport using riskMeasures
+
+import riskMeasures: VaR, AVaR, EVaR, EVaR2, CTE
 
 using LinearAlgebra, NeuralPDE, Flux
 using Test
