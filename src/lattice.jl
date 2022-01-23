@@ -69,7 +69,7 @@ CTE_\\alpha (Y) = VaR_\\alpha(Y) + \\frac{1}{1-\\alpha} \\mathbb{E} \\left( Y- V
 ```
 for the random variable ``Y`` defined by `states` and `prob`.
 """
-function CTE(lat:.Lattice,alpha::Float64)
+function CTE(lat:Lattice,alpha::Float64)
     T0 = deepcopy(lat);
 
 	for i=(length(T0.state)-1):-1:1
