@@ -1,7 +1,5 @@
 module dynamicRisk
 
-import Pkg; Pkg.add("https://github.com/rubsc/ScenTreesMakie.jl"); Pkg.add("https://github.com/rubsc/riskMeasures.jl")
-
 using Reexport
 @reexport using DifferentialEquations
 @reexport using ScenTreesMakie
@@ -12,9 +10,11 @@ using Test
 
 
 include("BSDE.jl")
+include("tree.jl")
+include("lattice.jl")
 
 
-export dynamicRM
+export dynamicRM, Var, CTE, AVaR, EVaR, EVaR2
 
 
 end # module

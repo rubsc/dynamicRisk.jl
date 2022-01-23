@@ -1,6 +1,6 @@
 using dynamicRisk
 using Test
-using DifferentialEquations
+
 
 @testset "BSDE" begin
     # Write your tests here.
@@ -13,4 +13,13 @@ using DifferentialEquations
     prob2 = SDEProblem(μ_f,σ_f,X0,tspan);
     
     @test  dynamicRM(prob2) ≈ 1.0 atol=0.1
+end
+
+
+@testset "Tree" begin
+    # Write your tests here.
+    trr = Tree(402)
+    @test CTE(trr::Tree,alpha::Float64)
+    
+
 end
