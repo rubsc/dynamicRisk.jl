@@ -19,7 +19,7 @@ end
 @testset "Tree" begin
     # Write your tests here.
     trr = Tree(402)
-    @test CTE(trr::Tree,alpha::Float64)
+    @test AVaR(trr::Tree,alpha::Float64)[1] <= maximum(trr.state)
     
 
 end

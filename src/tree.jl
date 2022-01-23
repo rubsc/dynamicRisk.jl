@@ -61,13 +61,13 @@ function VaR(trr::Tree,alpha::Float64)
         states = T0.state[T0.children[i+1]]
         prob = T0.probability[T0.children[i+1]]
 
-        T0.state[i] = VaR(states,prob,alpha)
+        T0.state[i] = riskMeasures.VaR(states,prob,alpha)
     end
     return(T0.state[1],T0)
 end
 
 """ 
-    CTE2(states,prob,alpha)
+    CTE(states,prob,alpha)
 implements the Conditional Value-at-Risk at level ``\\alpha`` defined by
 ```math
 CTE_\\alpha (Y) = VaR_\\alpha(Y) + \\frac{1}{1-\\alpha} \\mathbb{E} \\left( Y- VaR_\\alpha (Y) \\right)_+ ,
@@ -84,8 +84,11 @@ function CTE(trr::Tree,alpha::Float64)
         #Risk measure w/ adjustment of values
         states = T0.state[T0.children[i+1]]
         prob = T0.probability[T0.children[i+1]]
-
-        T0.state[i] = CTE(states,prob,alpha)
+        println(states)
+        println(prob)
+        T0.state[i] = riskMeasures.CTE(states,prob,alpha)
+        println("risk value:")
+        println(T0.state[i])
     end
     return(T0.state[1],T0)
 end
@@ -112,7 +115,7 @@ function EVaR2(trr::Tree,beta::Float64)
         states = T0.state[T0.children[i+1]]
         prob = T0.probability[T0.children[i+1]]
 
-        T0.state[i] = EVaR2(states,prob,beta)
+        T0.state[i] = riskMeasures.EVaR2(states,prob,beta)[1]
     end
     return(T0.state[1],T0)
 end
@@ -137,7 +140,7 @@ function EVaR(trr::Tree,beta::Float64)
         states = T0.state[T0.children[i+1]]
         prob = T0.probability[T0.children[i+1]]
 
-        T0.state[i] = EVaR(states,prob,beta)
+        T0.state[i] = riskMeasures.EVaR(states,prob,beta)[1]
     end
     return(T0.state[1],T0)
 end
@@ -162,8 +165,11 @@ function AVaR(trr::Tree, alpha::Float64)
         #Risk measure w/ adjustment of values
         states = T0.state[T0.children[i+1]]
         prob = T0.probability[T0.children[i+1]]
+        println(states)
+        println(prob)
 
-        T0.state[i] = AVaR(states,prob,alpha)
+        T0.state[i] = riskMeasures.AVaR(states,prob,alpha)[1]
     end
     return(T0.state[1],T0)
 end
+
