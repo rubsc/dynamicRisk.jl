@@ -146,3 +146,194 @@ function AVaR(trr::Tree, alpha::Float32)
     return(T0.state[1],T0)
 end
 
+#########################################
+# From basicRM.jl
+"""
+    Expectation(states,prob)
+
+Computes the expectation for the random variable ``Y`` with values given by `states` under
+the probability measure ``Q`` given by `prob`:
+
+```math
+\\mathbb{E} Y = states \\cdot prob
+```
+"""
+function Expectation(trr::Tree, alpha::Float32)
+    T0 = deepcopy(trr);
+
+    # For every parent node going backwards
+    tmp = reverse(unique(T0.parent)); pop!(tmp)
+    for i in tmp
+        #Note that the probs are the conditional ones
+        #Risk measure w/ adjustment of values
+        states = T0.state[T0.children[i+1]]
+        prob = T0.probability[T0.children[i+1]]
+
+        T0.state[i] = riskMeasures.Expectation(states,prob)
+    end
+    return(T0.state[1],T0)
+end
+
+
+
+"""
+    entropic(states, prob,theta::Float32)
+
+implements the entropic risk measure defined as
+```math
+\\rho_\\theta(Y) = \\theta \\cdot \\log \\mathbb{E} e^{\\frac{Y}{\\theta}},
+```
+where ``\\theta`` is greater 0 and ``Y`` is the random variable defined by `states` and `prob`.
+"""
+function entropic(trr::Tree, theta::Float32)
+    T0 = deepcopy(trr);
+
+    # For every parent node going backwards
+    tmp = reverse(unique(T0.parent)); pop!(tmp)
+    for i in tmp
+        #Note that the probs are the conditional ones
+        #Risk measure w/ adjustment of values
+        states = T0.state[T0.children[i+1]]
+        prob = T0.probability[T0.children[i+1]]
+
+        T0.state[i] = riskMeasures.entropic(states,prob,theta)
+    end
+    return(T0.state[1],T0)
+end
+
+
+
+
+#########################################################
+#Mean Semi-deviation
+#########################################################
+""" 
+    mSD(states,prob,beta::Float32,p::Float32)
+
+implements the mean semi-deviation of order `p` which is a coherent risk measure defined by
+```math
+mSD_\\beta^p (Y) = \\mathbb{E} Y  + \\beta \\lvert \\left( Y - \\mathbb{E}Y \\right)_+ \\rvert_p,
+```
+for the random variable ``Y`` defined by `states` and `prob`.
+"""
+function mSD(trr::Tree, beta::Float32,p::Float32)
+    T0 = deepcopy(trr);
+
+    # For every parent node going backwards
+    tmp = reverse(unique(T0.parent)); pop!(tmp)
+    for i in tmp
+        #Note that the probs are the conditional ones
+        #Risk measure w/ adjustment of values
+        states = T0.state[T0.children[i+1]]
+        prob = T0.probability[T0.children[i+1]]
+
+        T0.state[i] = riskMeasures. mSD(states,prob,beta::Float32,p::Float32)
+    end
+    return(T0.state[1],T0)
+end
+
+
+"""
+    meanVariance(states, prob,c::Float32)
+
+implements the mean Variance risk measure defined by
+```math
+\\rho_c(Y) := \\mathbb{E}Y + c \\cdot \\mathbb{E} \\left( Y- \\mathbb{E}Y)^2 \\right),
+```
+where ``c >0`` and ``Y`` is the random variable defined by `states` and `prob`.
+"""
+function meanVariance(trr::Tree, c::Float32)
+    T0 = deepcopy(trr);
+
+    # For every parent node going backwards
+    tmp = reverse(unique(T0.parent)); pop!(tmp)
+    for i in tmp
+        #Note that the probs are the conditional ones
+        #Risk measure w/ adjustment of values
+        states = T0.state[T0.children[i+1]]
+        prob = T0.probability[T0.children[i+1]]
+
+        T0.state[i] = riskMeasures.meanVariance(states, prob,c::Float32)
+    end
+    return(T0.state[1],T0)
+end
+
+
+"""
+    meanDeviation(states, prob,c::Float32,p::Float32)
+
+implements the mean deviation risk measure of order ``p\\geq 1`` defined by
+```math
+\\rho_c^p(Y) := \\mathbb{E}Y + c \\cdot \\lVert \\left( Y- \\mathbb{E}Y \\right)^2 \\rVert_p,
+```
+where ``c >0`` and ``Y`` is the random variable defined by `states` and `prob`.
+"""
+function meanDeviation(trr::Tree, c::Float32,p::Float32)
+    T0 = deepcopy(trr);
+
+    # For every parent node going backwards
+    tmp = reverse(unique(T0.parent)); pop!(tmp)
+    for i in tmp
+        #Note that the probs are the conditional ones
+        #Risk measure w/ adjustment of values
+        states = T0.state[T0.children[i+1]]
+        prob = T0.probability[T0.children[i+1]]
+
+        T0.state[i] = riskMeasures.meanDeviation(states, prob,c::Float32,p::Float32)
+    end
+    return(T0.state[1],T0)
+end
+
+
+
+"""
+    meanSemiVariance(states, prob,c::Float32,t::Float32)
+
+implements the mean upper-semi variance risk measure from a target ``t`` defined by
+```math
+\\rho_{c,t}(Y) = \\mathbb{E}Y + c \\cdot \\mathbb{E} \\left( Y - t \\right)^2_+ ,
+```
+where ``c >0`` and ``Y`` is the random variable defined by `states` and `prob`.
+"""
+function meanSemiVariance(trr::Tree, c::Float32,t::Float32)
+    T0 = deepcopy(trr);
+
+    # For every parent node going backwards
+    tmp = reverse(unique(T0.parent)); pop!(tmp)
+    for i in tmp
+        #Note that the probs are the conditional ones
+        #Risk measure w/ adjustment of values
+        states = T0.state[T0.children[i+1]]
+        prob = T0.probability[T0.children[i+1]]
+
+        T0.state[i] = riskMeasures.meanSemiVariance(states, prob,c::Float32,t::Float32)
+    end
+    return(T0.state[1],T0)
+end
+
+
+
+"""
+    meanSemiDevi(states, prob,c::Float32,target::Float32,p::Float32)
+
+implements the mean upper-semi variance risk measure of order ``p \\geq 1`` from a target ``t`` defined by
+```math
+\\rho_{c,t}^p(Y) = \\mathbb{E}Y + c \\cdot \\lVert \\left( Y - t \\right)_+ \\rVert_p ,
+```
+where ``c >0`` and ``Y`` is the random variable defined by `states` and `prob`.
+"""
+function meanSemiDevi(trr::Tree, c::Float32,target::Float32,p::Float32)
+    T0 = deepcopy(trr);
+
+    # For every parent node going backwards
+    tmp = reverse(unique(T0.parent)); pop!(tmp)
+    for i in tmp
+        #Note that the probs are the conditional ones
+        #Risk measure w/ adjustment of values
+        states = T0.state[T0.children[i+1]]
+        prob = T0.probability[T0.children[i+1]]
+
+        T0.state[i] = riskMeasures.meanSemiDevi(states, prob,c::Float32,target::Float32,p::Float32)
+    end
+    return(T0.state[1],T0)
+end
