@@ -30,26 +30,12 @@ function dynamicRM(trr::Tree; RM::Array{Any,1})
 end
 
 
-
-#function dynamicRM(tree0::lattice,eval = x-> sum(x), RM=1.0 )
-
-    # recursively go through lattice and apply RM
-    
-    
-#    return(nothing)
-#end
-
-
-
 """ 
-    VaR(states,prob,alpha)
-implements the Value-at-Risk at level ``\\alpha`` defined by
-```math
-VaR_\\alpha (Y) = \\arg \\min_x \\left( x\\in \\mathbb{R} : F_Y(x) \\geq \\alpha \\right),
-```
-for the random variable ``Y`` defined by `states` and `prob`.
+    VaR(trr::Tree,alpha::Float32)
+implements the nested version of the Value-at-Risk at level ``\\alpha`` for the Tree ``trr``. 
+See [here](https://rubsc.github.io/riskMeasures.jl/dev/) for the univariate version.
 """
-function VaR(trr::Tree,alpha::Float64)
+function VaR(trr::Tree,alpha::Float32)
     # look for smallest x such that  P(-states <= x) >alpha , i.e.
     T0 = deepcopy(trr);
 
@@ -67,14 +53,11 @@ function VaR(trr::Tree,alpha::Float64)
 end
 
 """ 
-    CTE(states,prob,alpha)
-implements the Conditional Value-at-Risk at level ``\\alpha`` defined by
-```math
-CTE_\\alpha (Y) = VaR_\\alpha(Y) + \\frac{1}{1-\\alpha} \\mathbb{E} \\left( Y- VaR_\\alpha (Y) \\right)_+ ,
-```
-for the random variable ``Y`` defined by `states` and `prob`.
+    CTE(trr::Tree,alpha::Float32)
+implements the nested version of the Conditional Tail Expectation at level ``\\alpha`` for the Tree ``trr``. 
+See [here](https://rubsc.github.io/riskMeasures.jl/dev/) for the univariate version.
 """
-function CTE(trr::Tree,alpha::Float64)
+function CTE(trr::Tree,alpha::Float32)
     T0 = deepcopy(trr);
 
     # For every parent node going backwards
@@ -95,16 +78,12 @@ end
 
 
 
+""" 
+    EVaR2(trr::Tree,beta::Float32)
+implements the nested version of the Entropic Value-at-Risk at level ``\\beta`` for the Tree ``trr``. 
+See [here](https://rubsc.github.io/riskMeasures.jl/dev/) for the univariate version.
 """
-    EVaR2(states,prob,beta)
-Solves the optimization problem associated with the primal formulation of the Entropic Value-at-Risk:
-```math
-EVaR_\\alpha(Y) = \\min_{x >0} \\frac{1}{x} \\left( \\beta +  \\log\\mathbb{E} e^{xY} \\right),
-```
-where ``Y`` is the discrete random variable defined by `states` and `prob`.
-Here the optimization is done via the goldenSearch optimization routine implemented as part of this package. 
-"""
-function EVaR2(trr::Tree,beta::Float64)
+function EVaR2(trr::Tree,beta::Float32)
 	T0 = deepcopy(trr);
 
     # For every parent node going backwards
@@ -121,15 +100,12 @@ function EVaR2(trr::Tree,beta::Float64)
 end
 
 
+""" 
+    EVaR(trr::Tree,beta::Float32)
+implements the nested version of the Entropic Value-at-Risk at level ``\\beta`` for the Tree ``trr``. 
+See [here](https://rubsc.github.io/riskMeasures.jl/dev/) for the univariate version. This version uses JuMP and Ipopt.
 """
-    EVaR(states,prob,beta)
-Solves the optimization problem associated with the primal formulation of the Entropic Value-at-Risk:
-```math
-EVaR_\\alpha(Y) = \\min_{x >0} \\frac{1}{x} \\left( \\beta +  \\log\\mathbb{E} e^{xY} \\right),
-```
-where ``Y`` is the discrete random variable defined by `states` and `prob`. Here, the optimization is done using JuMP and Ipopt.  
-"""
-function EVaR(trr::Tree,beta::Float64)
+function EVaR(trr::Tree,beta::Float32)
 	T0 = deepcopy(trr);
 
     # For every parent node going backwards
@@ -147,15 +123,12 @@ end
 
 
 
+""" 
+    AVaR(trr::Tree,beta::Float32)
+implements the nested version of the Average Value-at-Risk at level ``\\alpha`` for the Tree ``trr``. 
+See [here](https://rubsc.github.io/riskMeasures.jl/dev/) for the univariate version.
 """
-    AVaR(states,prob,alpha)
-Solves the optimization problem associated with the primal formulation of the Average Value-at-Risk:
-```math
-AVaR_\\alpha(Y) = \\min_{x\\in \\mathbb{R}} x + \\frac{1}{1-\\alpha} \\mathbb{E} \\left( Y - x \\right)_+,
-```
-where ``Y`` is the discrete random variable defined by `states` and `prob`.
-"""
-function AVaR(trr::Tree, alpha::Float64)
+function AVaR(trr::Tree, alpha::Float32)
     T0 = deepcopy(trr);
 
     # For every parent node going backwards
