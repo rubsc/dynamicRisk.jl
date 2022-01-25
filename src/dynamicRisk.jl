@@ -1,6 +1,6 @@
 module dynamicRisk
 
-using Pkg; Pkg.add("https://github.com/rubsc/riskMeasures.jl")
+#using Pkg; Pkg.add(url="https://github.com/rubsc/riskMeasures.jl")
 using Reexport
 @reexport using DifferentialEquations
 @reexport using ScenTreesMakie
