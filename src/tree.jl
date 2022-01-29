@@ -47,7 +47,7 @@ function VaR(trr::Tree,alpha::Float32)
         states = T0.state[T0.children[i+1]]
         prob = T0.probability[T0.children[i+1]]
 
-        T0.state[i] = riskMeasures.VaR(states,prob,alpha)
+        T0.state[i] = RiskMeasures.VaR(states,prob,alpha)
     end
     return(T0.state[1],T0)
 end
@@ -69,7 +69,7 @@ function CTE(trr::Tree,alpha::Float32)
         prob = T0.probability[T0.children[i+1]]
         println(states)
         println(prob)
-        T0.state[i] = riskMeasures.CTE(states,prob,alpha)
+        T0.state[i] = RiskMeasures.CTE(states,prob,alpha)
         println("risk value:")
         println(T0.state[i])
     end
@@ -94,7 +94,7 @@ function EVaR2(trr::Tree,beta::Float32)
         states = T0.state[T0.children[i+1]]
         prob = T0.probability[T0.children[i+1]]
 
-        T0.state[i] = riskMeasures.EVaR2(states,prob,beta)[1]
+        T0.state[i] = RiskMeasures.EVaR2(states,prob,beta)[1]
     end
     return(T0.state[1],T0)
 end
@@ -116,7 +116,7 @@ function EVaR(trr::Tree,beta::Float32)
         states = T0.state[T0.children[i+1]]
         prob = T0.probability[T0.children[i+1]]
 
-        T0.state[i] = riskMeasures.EVaR(states,prob,beta)[1]
+        T0.state[i] = RiskMeasures.EVaR(states,prob,beta)[1]
     end
     return(T0.state[1],T0)
 end
@@ -141,7 +141,7 @@ function AVaR(trr::Tree, alpha::Float32)
         println(states)
         println(prob)
 
-        T0.state[i] = riskMeasures.AVaR(states,prob,alpha)[1]
+        T0.state[i] = RiskMeasures.AVaR(states,prob,alpha)[1]
     end
     return(T0.state[1],T0)
 end
@@ -169,7 +169,7 @@ function Expectation(trr::Tree, alpha::Float32)
         states = T0.state[T0.children[i+1]]
         prob = T0.probability[T0.children[i+1]]
 
-        T0.state[i] = riskMeasures.Expectation(states,prob)
+        T0.state[i] = RiskMeasures.Expectation(states,prob)
     end
     return(T0.state[1],T0)
 end
@@ -196,7 +196,7 @@ function entropic(trr::Tree, theta::Float32)
         states = T0.state[T0.children[i+1]]
         prob = T0.probability[T0.children[i+1]]
 
-        T0.state[i] = riskMeasures.entropic(states,prob,theta)
+        T0.state[i] = RiskMeasures.entropic(states,prob,theta)
     end
     return(T0.state[1],T0)
 end
@@ -227,7 +227,7 @@ function mSD(trr::Tree, beta::Float32,p::Float32)
         states = T0.state[T0.children[i+1]]
         prob = T0.probability[T0.children[i+1]]
 
-        T0.state[i] = riskMeasures. mSD(states,prob,beta::Float32,p::Float32)
+        T0.state[i] = RiskMeasures. mSD(states,prob,beta::Float32,p::Float32)
     end
     return(T0.state[1],T0)
 end
@@ -253,7 +253,7 @@ function meanVariance(trr::Tree, c::Float32)
         states = T0.state[T0.children[i+1]]
         prob = T0.probability[T0.children[i+1]]
 
-        T0.state[i] = riskMeasures.meanVariance(states, prob,c::Float32)
+        T0.state[i] = RiskMeasures.meanVariance(states, prob,c::Float32)
     end
     return(T0.state[1],T0)
 end
@@ -279,7 +279,7 @@ function meanDeviation(trr::Tree, c::Float32,p::Float32)
         states = T0.state[T0.children[i+1]]
         prob = T0.probability[T0.children[i+1]]
 
-        T0.state[i] = riskMeasures.meanDeviation(states, prob,c::Float32,p::Float32)
+        T0.state[i] = RiskMeasures.meanDeviation(states, prob,c::Float32,p::Float32)
     end
     return(T0.state[1],T0)
 end
@@ -306,7 +306,7 @@ function meanSemiVariance(trr::Tree, c::Float32,t::Float32)
         states = T0.state[T0.children[i+1]]
         prob = T0.probability[T0.children[i+1]]
 
-        T0.state[i] = riskMeasures.meanSemiVariance(states, prob,c::Float32,t::Float32)
+        T0.state[i] = RiskMeasures.meanSemiVariance(states, prob,c::Float32,t::Float32)
     end
     return(T0.state[1],T0)
 end
@@ -333,7 +333,7 @@ function meanSemiDevi(trr::Tree, c::Float32,target::Float32,p::Float32)
         states = T0.state[T0.children[i+1]]
         prob = T0.probability[T0.children[i+1]]
 
-        T0.state[i] = riskMeasures.meanSemiDevi(states, prob,c::Float32,target::Float32,p::Float32)
+        T0.state[i] = RiskMeasures.meanSemiDevi(states, prob,c::Float32,target::Float32,p::Float32)
     end
     return(T0.state[1],T0)
 end

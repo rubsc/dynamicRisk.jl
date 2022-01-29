@@ -1,11 +1,10 @@
 module dynamicRisk
 
-using Pkg; Pkg.add("https://github.com/rubsc/riskMeasures.jl")
 using Reexport
 @reexport using DifferentialEquations
 @reexport using ScenTreesMakie
 
-import riskMeasures
+import RiskMeasures
 
 using LinearAlgebra, NeuralPDE, Flux
 using Test

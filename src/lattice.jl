@@ -11,7 +11,7 @@ function VaR(lat::Lattice,alpha::Float32)
 
     for i=(length(T0.state)-1):-1:1
 		for j=1:length(T0.state[i])
-			T0.state[i][j] = riskMeasures.VaR(T0.state[i+1],T0.probability[i+1][j,:,1],alpha)
+			T0.state[i][j] = RiskMeasures.VaR(T0.state[i+1],T0.probability[i+1][j,:,1],alpha)
 		end
 	end
     return(T0.state[1],T0)
@@ -27,7 +27,7 @@ function CTE(lat::Lattice,alpha::Float32)
 
 	for i=(length(T0.state)-1):-1:1
 		for j=1:length(T0.state[i])
-			T0.state[i][j] = riskMeasures.CTE(T0.state[i+1],T0.probability[i+1][j,:,1],alpha)
+			T0.state[i][j] = RiskMeasures.CTE(T0.state[i+1],T0.probability[i+1][j,:,1],alpha)
 		end
 	end
     
@@ -47,7 +47,7 @@ function EVaR2(lat::Lattice,beta::Float32)
 
 	for i=(length(T0.state)-1):-1:1
 		for j=1:length(T0.state[i])
-			T0.state[i][j] = riskMeasures.EVaR2(T0.state[i+1],T0.probability[i+1][j,:,1],beta)[1]
+			T0.state[i][j] = RiskMeasures.EVaR2(T0.state[i+1],T0.probability[i+1][j,:,1],beta)[1]
 		end
 	end
 
@@ -65,7 +65,7 @@ function EVaR(lat::Lattice,beta::Float32)
 
     for i=(length(T0.state)-1):-1:1
 		for j=1:length(T0.state[i])
-			T0.state[i][j] = riskMeasures.EVaR(T0.state[i+1],T0.probability[i+1][j,:,1],beta)[1]
+			T0.state[i][j] = RiskMeasures.EVaR(T0.state[i+1],T0.probability[i+1][j,:,1],beta)[1]
 		end
 	end
     return(T0.state[1],T0)
@@ -83,7 +83,7 @@ function AVaR(lat::Lattice, alpha::Float32)
 
     for i=(length(T0.state)-1):-1:1
 		for j=1:length(T0.state[i])
-			T0.state[i][j] = riskMeasures.AVaR(T0.state[i+1],T0.probability[i+1][j,:,1],alpha)[1]
+			T0.state[i][j] = RiskMeasures.AVaR(T0.state[i+1],T0.probability[i+1][j,:,1],alpha)[1]
 		end
 	end
     return(T0.state[1],T0)
